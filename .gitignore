@@ -1,0 +1,35 @@
+node_modules/
+.next/
+.turbo/
+build/
+dist/
+out/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# SQLite database files
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+data/
+db/
+
+# Payload upload directory (use object storage in prod)
+media/
+uploads/
+
+# Logs
+*.log
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Generated types
+src/payload-types.ts

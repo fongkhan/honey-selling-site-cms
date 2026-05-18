@@ -1,0 +1,47 @@
+{
+  "name": "honey-selling-site-cms",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Honey shop — Payload CMS v3 (SQLite). Manages editorial content (pages, blog, media). Commerce lives in a separate Medusa repo.",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "main": "server.js",
+  "scripts": {
+    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
+    "start": "cross-env NODE_OPTIONS=--no-deprecation node server.js",
+    "start:next": "cross-env NODE_OPTIONS=--no-deprecation next start",
+    "generate:types": "payload generate:types",
+    "generate:importmap": "payload generate:importmap",
+    "payload": "payload",
+    "lint": "next lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,mjs,json,md}\"",
+    "test:e2e": "playwright test",
+    "test:int": "vitest run"
+  },
+  "dependencies": {
+    "payload": "^3.0.0",
+    "@payloadcms/next": "^3.0.0",
+    "@payloadcms/db-sqlite": "^3.0.0",
+    "@payloadcms/richtext-lexical": "^3.0.0",
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "graphql": "^16.9.0",
+    "sharp": "^0.33.5",
+    "cross-env": "^7.0.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "@types/node": "^22.7.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^15.0.0",
+    "prettier": "^3.3.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}

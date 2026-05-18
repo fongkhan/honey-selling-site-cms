@@ -1,0 +1,12 @@
+services:
+  cms:
+    build: .
+    container_name: honey-cms
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data       # SQLite db file
+      - ./media:/app/media     # uploads (replace with S3 in prod)
