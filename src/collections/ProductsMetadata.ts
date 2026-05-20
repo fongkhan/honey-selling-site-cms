@@ -3,6 +3,10 @@ import { triggerBuild } from '../hooks/triggerBuild';
 
 export const ProductsMetadata: CollectionConfig = {
   slug: 'products-metadata',
+  labels: {
+    singular: 'Fiche Miel (Détails & Bienfaits)',
+    plural: 'Fiches Miels (Détails & Bienfaits)',
+  },
   access: {
     read: () => true,
   },

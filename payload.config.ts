@@ -9,6 +9,7 @@ import { Media } from './src/collections/Media';
 import { Pages } from './src/collections/Pages';
 import { Posts } from './src/collections/Posts';
 import { ProductsMetadata } from './src/collections/ProductsMetadata';
+import { Settings } from './src/globals/Settings';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -24,6 +25,7 @@ export default buildConfig({
   },
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
   collections: [Users, Media, Pages, Posts, ProductsMetadata],
+  globals: [Settings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET ?? '',
   typescript: { outputFile: path.resolve(dirname, 'src/payload-types.ts') },

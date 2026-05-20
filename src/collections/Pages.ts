@@ -38,6 +38,21 @@ export const Pages: CollectionConfig = {
       index: true,
     },
     {
+      name: 'showInNavbar',
+      label: 'Afficher dans la barre de navigation',
+      type: 'checkbox',
+      defaultValue: false,
+    },
+    {
+      name: 'navbarOrder',
+      label: 'Ordre d\'affichage dans la navigation',
+      type: 'number',
+      defaultValue: 0,
+      admin: {
+        condition: (data) => !!data?.showInNavbar,
+      },
+    },
+    {
       name: 'content',
       type: 'richText',
     },
