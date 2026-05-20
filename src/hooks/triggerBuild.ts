@@ -1,5 +1,4 @@
 import { createHmac } from 'node:crypto';
-import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload';
 
 /**
  * Fires the Astro rebuild webhook. Signed with HMAC SHA-256 so the receiver
@@ -7,9 +6,14 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'paylo
  * coalesces bursts into a single build, so calling this from every collection
  * mutation is safe.
  */
-export const triggerBuild: CollectionAfterChangeHook & CollectionAfterDeleteHook = async ({
+export const triggerBuild: any = async ({
   req,
   collection,
+  global,
+}: {
+  req: any;
+  collection?: any;
+  global?: any;
 }) => {
   // Skip during seeding / programmatic ops where req.context flags it off.
   if (req?.context?.skipBuildHook) return;
@@ -21,9 +25,15 @@ export const triggerBuild: CollectionAfterChangeHook & CollectionAfterDeleteHook
     return;
   }
 
+  const slug = collection?.slug || global?.slug || 'unknown';
+  const type = collection ? 'collection' : (global ? 'global' : 'unknown');
+
   const body = JSON.stringify({
     source: 'payload',
-    collection: collection.slug,
+    type,
+    slug,
+    collection: collection?.slug || null,
+    global: global?.slug || null,
     at: new Date().toISOString(),
   });
   const signature = createHmac('sha256', secret).update(body).digest('hex');
@@ -40,3 +50,4 @@ export const triggerBuild: CollectionAfterChangeHook & CollectionAfterDeleteHook
     req?.payload?.logger?.error({ err }, '[triggerBuild] webhook POST failed');
   });
 };
+
