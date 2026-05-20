@@ -7,11 +7,9 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) — versioning:
 ## [Unreleased]
 
 ### Added
-- Modulable page layout blocks system in `src/blocks/LayoutBlocks.ts` representing `HeroBlock`, `PageHeaderBlock`, `ValuesBlock`, `StoryBlock`, `EngagementsBlock`, `QuoteBlock`, `FeaturedProductsBlock`, and `LatestPostsBlock`.
-- Block-based dynamic layout editing field inside the `Pages` collection schema.
-- Next.js API seeding endpoint (`src/app/api/seed/route.ts`) to completely wipe and populate SQLite with premium page blocks for the Home and History pages, and 3 rich blog posts.
-- Recursive `convertToLexical` utility inside the seeding API to transform raw text into standard, compliant Payload v3 Lexical rich text JSON trees.
-- Initial Payload CMS v3 scaffold (SQLite adapter, Lexical editor).
+- Configuration globale de Paramètres Généraux (`src/globals/Settings.ts`) permettant de modifier dynamiquement le nom du site, le slogan et la favicon téléchargée directement depuis l'administration de Payload.
+- Intégration d'options pour la barre de navigation dans la collection `Pages` (champs `showInNavbar` et `navbarOrder` à affichage conditionnel dans le tableau de bord).
+- Labellisation conviviale de la collection de fiches techniques `ProductsMetadata` renommée en **"Fiches Miels (Détails & Bienfaits)"** pour simplifier le travail d'édition de l'apiculteur.
 - Collections: `Users`, `Media`, `Pages`, `Posts`.
 - `ProductsMetadata` custom collection to store terroir characteristics, intensity, honey wellness benefits, and recipes.
 - `src/hooks/triggerBuild.ts` — afterChange/afterDelete HMAC-signed POST to the Astro rebuild endpoint.

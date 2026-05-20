@@ -94,9 +94,11 @@ cms/
     ├── collections/
     │   ├── Users.ts
     │   ├── Media.ts
-    │   ├── Pages.ts
-    │   ├── Posts.ts
-    │   └── ProductsMetadata.ts  # Métadonnées terroir & recettes de miels
+    │   ├── Pages.ts             # Pages dynamiques (avec options showInNavbar / navbarOrder)
+    │   ├── Posts.ts             # Articles de blog édités en lexical
+    │   └── ProductsMetadata.ts  # Fiches Miels (Détails & Bienfaits)
+    ├── globals/
+    │   └── Settings.ts          # Paramètres globaux (siteName, slogan, favicon)
     └── hooks/
         └── triggerBuild.ts
 ```
