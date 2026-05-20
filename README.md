@@ -1,29 +1,49 @@
 # honey-selling-site-cms
 
 Headless CMS pour le site de vente de miel. Gère **uniquement le contenu
-éditorial** : pages, articles de blog, médias. Le commerce (produits, prix,
+éditorial** : pages, articles de blog, médias, métadonnées produits. Le commerce (produits, prix,
 stock, commandes) est dans
 [honey-selling-site-commerce](../commerce). Le site public statique est
 [honey-selling-site-frontend](../frontend).
 
 ## Stack
 
-- Payload CMS v3 (servi par Next.js — admin sur `/admin`, REST + GraphQL sur `/api`)
+- Payload CMS v3 (servi par Next.js 15 — admin sur `/admin`, REST + GraphQL sur `/api`)
 - **SQLite** (via `@payloadcms/db-sqlite`) — pas de Postgres requis, idéal o2switch
 - Lexical rich-text editor
-- Node.js 24 (compatible 22+)
+- Node.js 22+
 
 ## Démarrage local
 
 ```bash
-nvm use                              # 24.15.0
-cp .env.example .env                 # éditer PAYLOAD_SECRET et le webhook
+# Copier et éditer les variables d'environnement (Secret, Webhook)
+cp .env.example .env
+
+# Installer les dépendances
 npm install
+
+# Démarrer le serveur de développement
 npm run dev                          # http://localhost:3000/admin
 ```
 
-Le premier démarrage applique les migrations Payload sur la base SQLite et
-demande de créer le premier compte admin.
+### Identifiants d'Administration Locaux (SQLite)
+Lors de l'initialisation de la base SQLite `data/payload.db`, un compte d'administration a été configuré par défaut :
+- **Email** : `fong.vu@hotmail.fr`
+- *Note : En cas de besoin de créer un nouvel admin ou de tester un autre compte, Payload vous redirigera automatiquement vers `/admin/create-first-user` si aucune base n'existe.*
+
+## Notes de Résolution & Configuration
+
+### 1. Style Global (`layout.tsx`)
+Pour que l'administration charge sa charte graphique premium complète, la feuille de style globale de Payload CMS v3 est explicitement importée dans [src/app/(payload)/layout.tsx](file:///e:/Program%20Files/git/honey-selling-site/cms/src/app/(payload)/layout.tsx) :
+```typescript
+import '@payloadcms/next/css'
+```
+
+### 2. Standalone Build et Next Dev (`next.config.ts`)
+Pour éviter tout conflit d'actifs et d'hydratation CSS en cours de développement (`next dev`), le paramètre `standalone` n'est activé qu'en production :
+```typescript
+output: process.env.NODE_ENV === 'production' ? 'standalone' : undefined
+```
 
 ## Production
 
@@ -75,22 +95,11 @@ cms/
     │   ├── Users.ts
     │   ├── Media.ts
     │   ├── Pages.ts
-    │   └── Posts.ts
+    │   ├── Posts.ts
+    │   └── ProductsMetadata.ts  # Métadonnées terroir & recettes de miels
     └── hooks/
         └── triggerBuild.ts
 ```
-
-## À compléter avant le premier `npm install`
-
-Payload v3 attend une arborescence Next.js (`app/`, `next-env.d.ts`,
-`app/(payload)/...`). Le plus rapide est de générer un squelette une fois :
-
-```bash
-npx create-payload-app@latest --name temp --template blank --use-npm
-```
-
-puis copier les fichiers `app/`, `next-env.d.ts` du squelette dans ce repo,
-**sans écraser** `payload.config.ts`, `server.js`, ni `src/`.
 
 ## Variables d'environnement
 
@@ -101,3 +110,4 @@ trois repos.
 
 - [SQLITE_PATH_FIX.md](./SQLITE_PATH_FIX.md) — piège classique du chemin SQLite relatif sur o2switch.
 - [O2SWITCH_DEPLOYMENT.md](./O2SWITCH_DEPLOYMENT.md) — déploiement cPanel pas à pas.
+

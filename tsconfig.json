@@ -7,7 +7,7 @@
       "esnext"
     ],
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "jsx": "preserve",
     "strict": true,
     "noEmit": true,
@@ -20,6 +20,9 @@
     "paths": {
       "@payload-config": [
         "./payload.config.ts"
+      ],
+      "@/*": [
+        "./src/*"
       ]
     },
     "plugins": [
